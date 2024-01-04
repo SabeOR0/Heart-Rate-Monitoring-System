@@ -1,0 +1,118 @@
+
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class HeartRateReaderApp extends JFrame {
+
+    private JLabel heartRateLabel;
+    private Timer timer;
+    private int heartRate;
+
+    public HeartRateReaderApp() {
+        // Set up the main frame
+        setTitle("Heart Rate Reader");
+        setSize(800, 600);
+        getContentPane().setBackground(Color.orange);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new FlowLayout());
+        setLayout(new GridLayout(7, 5));
+        this.setLocationRelativeTo(null);
+
+        // Create UI components
+        heartRateLabel = new JLabel("Heart Rate: ");
+        JButton startButton = new JButton("Start");
+        JButton stopButton = new JButton("Stop");
+        JButton anotherButton = new JButton("Another Stop"); // Renamed the second stop button
+        VideoPlayer video = new VideoPlayer("C:\\Users\\Admin\\Downloads\\Blue and Teal Online Consultation Instagram Post (2).mp4");
+        add(video);
+        video.play();
+        startButton.setBackground(Color.green);
+        stopButton.setForeground(Color.red);
+
+
+
+
+
+
+        // Add components to the frame
+        add(heartRateLabel);
+        add(startButton);
+        add(stopButton);
+        add(anotherButton); // Added the second stop button
+
+        // Set up action listeners
+        startButton.addActionListener(new ActionListener() {
+            @Override
+
+
+            public void actionPerformed(ActionEvent e) {
+                startHeartRateSimulation();
+            }
+         });
+
+        stopButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                stopHeartRateSimulation();
+            }
+        });
+
+        anotherButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                stopHeartRateSimulation();
+            }
+        });
+
+        // Initialize the timer
+        timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateHeartRate();
+            }
+        });
+    }
+
+    private void startHeartRateSimulation() {
+        timer.start();
+    }
+
+    private void stopHeartRateSimulation() {
+        timer.stop();
+    }
+
+    private void updateHeartRate() {
+        heartRate = (int) (Math.random() * 100) + 70;
+        heartRateLabel.setText("Heart Rate: " + heartRate);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                new HeartRateReaderApp().setVisible(true);
+            }
+
+
+        });
+    }
+
+    private class VideoPlayer extends JPanel {
+        private String filename;
+
+        public VideoPlayer(String filename) {
+            this.filename = filename;
+        }
+
+        public void play() {
+            // Implement video playback logic here
+            // You might want to use a library or component for video playback
+
+        }
+
+    }
+}

@@ -1,0 +1,148 @@
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class LoginWindow extends JFrame {
+
+    // Add this method to your LoginWindow class
+    private void displayHowToRunWindow() {
+        // Create a new JFrame for the "How to run this app" window
+        JFrame howToRunWindow = new JFrame("How to Run This App");
+        howToRunWindow.setSize(600, 400);
+        howToRunWindow.setLayout(new BorderLayout());
+        howToRunWindow.setLocationRelativeTo(null);
+
+
+        // Create a JTextArea with instructions
+
+        JTextArea instructionsArea = new JTextArea();
+        instructionsArea.setEditable(false);
+        instructionsArea.setLineWrap(true);
+        instructionsArea.setWrapStyleWord(true);
+        instructionsArea.setText("To run this app, follow these steps:\n\n" +
+                "1. Enter your username and password.\n" +
+                "2. Click the 'Login' button.\n" +
+                "3. If the credentials are valid, the main application will open.\n\n" +
+                "Note: Make sure to enter the correct username and password.");
+
+        // Add the JTextArea to the howToRunWindow
+        howToRunWindow.add(new JScrollPane(instructionsArea), BorderLayout.CENTER);
+
+        // Set the window to be visible
+        howToRunWindow.setVisible(true);
+    }
+
+
+
+    private JTextField usernameField;
+    private JPasswordField passwordField;
+
+    private LoginWindow() {
+        setTitle ("Login");
+        setSize (800, 600);
+        getContentPane ().setBackground (Color.yellow);
+        setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
+        setLayout (new GridLayout (20, 10));
+        this.setLocationRelativeTo (null);
+
+        JLabel usernameLabel = new JLabel ("Username:");
+        usernameField = new JTextField ();
+        JLabel passwordLabel = new JLabel ("Password:");
+
+        //Loging button
+        passwordField = new JPasswordField ();
+        JButton loginButton = new JButton ("Login");
+
+        // Runnig app button
+        JButton about = new JButton ("How to run this  apps??");
+        loginButton.setBackground (Color.green);
+        about.setBackground (Color.blue);
+
+
+        about = new JButton ("How to run this app??");
+        about.setBackground(Color.white);
+
+        about.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Call the method to display the "How to run this app" window
+                displayHowToRunWindow();
+            }
+        });
+
+        ImageIcon defaultImageIcon = new ImageIcon("\"C:\\Users\\Admin\\Downloads\\get (1).png\"");
+        JLabel imageLabel = new JLabel(defaultImageIcon);
+
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+
+                // Get the entered username and password
+                String enteredUsername = usernameField.getText();
+                char[] enteredPasswordChars = passwordField.getPassword();
+                String enteredPassword = new String(enteredPasswordChars);
+
+
+                // Check if the entered username and password are valid
+                if ("Ekanta".equals(enteredUsername) && "1234".equals(enteredPassword)) {
+                    // Valid credentials, open the main application
+                    openMainApp();
+
+
+                } else {
+                    // Invalid credentials, show a message box
+                    JOptionPane.showMessageDialog(LoginWindow.this, "Invalid username or password", "Login Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+
+                // Clear the password field for security
+                passwordField.setText("");
+            }
+        });
+
+        add(about);
+        add(imageLabel);
+        add (usernameLabel);
+        add (usernameField);
+        add (passwordLabel);
+        add (passwordField);
+        add (new JLabel ()); // Placeholder for spacing
+        add (loginButton);
+        add (about);
+
+        loginButton.addActionListener (new ActionListener ()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Perform login validation (for simplicity, no actual validation in this example)
+                openMainApp ();
+            }
+        });
+    }
+
+    private void openMainApp()
+    {
+        // Close the login window
+        setVisible (false);
+        dispose ();
+
+        // Open the main application window
+        SwingUtilities.invokeLater (() -> new HeartRateReaderApp ().setVisible (true));
+    }
+    private void opennew()
+    {
+        // Close the login window
+        setVisible (false);
+        dispose ();
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater (() -> new LoginWindow ().setVisible (true));
+        ;
+        {
+            SwingUtilities.invokeLater (() -> new LoginWindow ().setVisible (true));}
+        }
+}
